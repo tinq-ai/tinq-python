@@ -1,0 +1,10 @@
+.idea
+venv
+*pyc
+.pytest_cache
+dist
+build
+*.egg-info
+MANIFEST
+.env
+.DS_Store
