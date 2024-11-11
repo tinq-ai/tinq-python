@@ -1,7 +1,7 @@
 # tinq
 
 - API version: v2
-- Package version: 0.2.0
+- Package version: 0.2.1
 
 ## Requirements.
 
@@ -13,9 +13,9 @@ Python 3.7+
 If the python package is hosted on a repository, you can install directly using:
 
 ```sh
-pip install git+https://github.com/tinq-ai/tinq-python.git
+pip install tinq
 ```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/tinq-ai/tinq-python.git`)
+(you may need to run `pip` with root permission: `sudo pip install tinq
 
 Then import the package:
 ```python
