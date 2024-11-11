@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.25.0"
+__version__ = "0.2.0"
 
 # import apis into sdk package
 from tinq.api.assistant import Assistant

@@ -1,7 +1,7 @@
 # tinq
 
 - API version: v2
-- Package version: 1.25.0
+- Package version: 0.2.0
 
 ## Requirements.
 
