@@ -3,22 +3,27 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "tinq"
-version = "0.0.2"
+version = "0.2.0"
 authors = [
-  { name="Boulama K.", email="boulama@tinq.ai" },
+  { name="Boulama", email="boulama@tinq.ai" },
 ]
-description = "A Python wrapper for the Tinq.ai API - an easy-to-use text analysis and natural language processing toolkit."
+description = "Tinq AI V2"
 readme = "README.md"
 license = { file="LICENSE" }
 requires-python = ">=3.7"
-dependencies = ["python-dotenv", "requests"]
+dependencies = [
+    "urllib3>=1.25.3,<3.0.0",
+    "python-dateutil>=2.8.2",
+    "pydantic>=2",
+    "typing-extensions>=4.7.1",
+]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
+    "Development Status :: 2 - Pre-Alpha",
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/tinq-ai/tinq-python"
-"Bug Tracker" = "https://github.com/tinq-ai/tinq-python/issues"
+"Homepage" = "https://github.com/socketbee/socketbee.py"
+"Bug Tracker" = "https://github.com/socketbee/socketbee.py/issues"

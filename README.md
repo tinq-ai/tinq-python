@@ -1,147 +1,132 @@
-# Tinq.ai Python Library
+# tinq
 
-![Tinq.ai logo](https://res.cloudinary.com/tinq-ai/image/upload/v1642011382/website/tinq-logo-with-bee_tkaj18.svg)
+- API version: v2
+- Package version: 0.2.0
 
-A Python wrapper for the Tinq.ai API - an easy-to-use text analysis and natural language processing toolkit.
+## Requirements.
 
-## Documentation
+Python 3.7+
 
-Find the full API documentation [here](https://developers.tinq.ai/)
+## Installation & Usage
+### pip install
 
-## Requirements
-
-Python 3.7 or higher
-
-## Installation
-Install the package with:
+If the python package is hosted on a repository, you can install directly using:
 
 ```sh
+pip install git+https://github.com/tinq-ai/tinq-python.git
+```
+(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/tinq-ai/tinq-python.git`)
 
-pip install tinq
-
+Then import the package:
+```python
+import tinq
 ```
 
-## Usage
+### Setuptools
 
-### Table of Contents
+Install via [Setuptools](http://pypi.python.org/pypi/setuptools).
 
-- [Authentication](#authentication)
-- [Rewriter](#rewriter)
-- [Summarizer](#summarizer)
-- [Classifier](#classifier)
-- [Article Extractor](#article-extractor)
-- [Sentiment analysis](#sentiment-analysis)
-- [Plagiarism Checker](#plagiarism-checker)
-  
-> Please note that all methods return associative arrays. Responses can be found in the developer documentation [here](https://developers.tinq.ai/).
+```sh
+python setup.py install --user
+```
+(or `sudo python setup.py install` to install the package for all users)
 
-### Authentication
+Then import the package:
+```python
+import tinq
+```
 
-Get the API key for your project in Tinq.ai and then instantiate a new client.
+### Tests
+
+Execute `pytest` to run the tests.
+
+## Getting Started
+
+Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```python
-from tinq import Tinq
 
-tinq = Tinq(api_key='<api-key>')
-```
+import tinq
+from tinq.rest import ApiException
+from pprint import pprint
 
-Alternatively, set the API key and your username in an environment variable named `TINQ_API_KEY` & `TINQ_USERNAME`, respectively.
+# Defining the host is optional and defaults to https://tinq.ai/api/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tinq.Configuration(
+    host = "https://tinq.ai/api/v2"
+)
 
-```python
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-from tinq import Tinq
-
-tinq = Tinq()
-
-```
-
-### Rewriter
-Rewrites/paraphrases a given text.
-
-`text` is the piece of content that you'd like to rewrite.
-list of accepted parameters is available [here](https://developers.tinq.ai/reference/rewriter).
-  
-```python
-text = "The process of learning a new piece of music is fantastic. You start from nothing, practise, improve, and finally get the fruits of your hard work, as farmers do during the harvest time."
-rewritten = tinq.rewrite(text)
-
-```
-
-### Summarizer
-Summarizes a given text.
-
-`text` is the piece of content that you'd like to summarize.
-list of accepted parameters is available [here](https://developers.tinq.ai/reference/summarizer).
-  
-```python
-
-text = "Bernal’s case study is Tullis Mason, a chap who sports “three-quarter length shorts” even in a lab coat. Matson runs an artificial insemination company for racehorses from his family’s farm in Shropshire, England. However, on the side, he is also planning to save the animal kingdom by building the biggest biobank of animal cells in Europe. It’s not always a dignified business, with Bernal describing Mason hooking an elephant penis into a device that looks like “a huge condom,” but the science and the ethics her article explores are fascinating. We may not be about to bring dinosaurs back to life, but with help from biobanking, life already on this planet might still find a way."
-summary = tinq.summarize(text)
-
-```
+# Configure Bearer authorization: bearerAuth
+configuration = tinq.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 
-### Classifier
-Classifies a given text, according to a classifier that you specify
+# Enter a context with an instance of the API client
+with tinq.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tinq.Assistant(api_client)
+    accept_charset = 'UTF-8' # str |  (optional)
+    content_type = 'application/json' # str |  (optional)
+    accept = 'application/json' # str |  (optional)
+    body = None # object |  (optional)
 
-`$text` is the piece of content that you'd like to summarize.
-`$classifier` is the piece of content that you'd like to summarize.
-`$params` is optional, a list of accepted parameters is available [here](https://developers.tinq.ai/reference/classifier).
-  
-```python
-
-text = "Hi, I need help with my website."
-classifier = "fjew833" # ID of your classifier on Tinq.ai
-classified = tinq.classify(text=text, classifier=classifier)
+    try:
+        # Generate
+        api_instance.generate(accept_charset=accept_charset, content_type=content_type, accept=accept, body=body)
+    except ApiException as e:
+        print("Exception when calling Assistant->generate: %s\n" % e)
 
 ```
 
-### Article Extractor
-Extractor API is a feature-rich API and online application that handles all of the tedious work and problems associated with clean text extraction.
+## Documentation for API Endpoints
 
-`url` URL from which you want to extract an article.
-list of accepted parameters is available [here](https://developers.tinq.ai/reference/article-extractor).
-  
-```python
+All URIs are relative to *https://tinq.ai/api/v2*
 
-url = "https://longreads.com/2021/08/19/bringing-species-back-from-the-brink/"
-extracted = tinq.extract_article(url=url)
-
-```
-
-
-### Sentiment Analysis
-Performs sentiment analysis operations for a given string.
-
-`text` is the piece of content that you'd like to summarize.
-list of accepted parameters is available [here](https://developers.tinq.ai/reference/sentiment-analysis).
-  
-```python
-
-text = "I really like you."
-sentimentAnalysis = tinq.sentiments(text=text)
-
-```
-
-### Plagiarism Checker
-Checks for plagiarism and finds online sources for a given content.
-
-`text` is the piece of content that you'd like to summarize.
-list of accepted parameters is available [here](https://developers.tinq.ai/reference/plagiarism-checker).
-  
-```python
-
-text = "Bernal’s case study is Tullis Mason, a chap who sports “three-quarter length shorts” even in a lab coat. Matson runs an artificial insemination company for racehorses from his family’s farm in Shropshire, England."
-checkPlagiarism = tinq.check_plagiarism(text=text)
-
-```
-
-## Contributing
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*Assistant* | [**generate**](docs/Assistant.md#generate) | **POST** /assistant | Generate
+*Classifiers* | [**classifiers**](docs/Classifiers.md#classifiers) | **GET** /classifiers | Classifiers
+*Classifiers* | [**classify**](docs/Classifiers.md#classify) | **POST** /classify | Classify
+*Classifiers* | [**sentiment_analysis**](docs/Classifiers.md#sentiment_analysis) | **POST** /sentiment-analysis | Sentiment Analysis
+*PlagiarismChecker* | [**check_plagiarism**](docs/PlagiarismChecker.md#check_plagiarism) | **POST** /check-plagiarism | Check Plagiarism
+*Projects* | [**create_project**](docs/Projects.md#create_project) | **POST** /projects | Create Project
+*Projects* | [**get_all_projects**](docs/Projects.md#get_all_projects) | **GET** /projects/ | Get All Projects
+*Projects* | [**get_project**](docs/Projects.md#get_project) | **GET** /projects/{project} | Get Project
+*Projects* | [**update_project**](docs/Projects.md#update_project) | **PUT** /projects/{project} | Update Project
+*Scraper* | [**extract_article**](docs/Scraper.md#extract_article) | **POST** /scraper/extract-article | Extract article
+*Scraper* | [**google_search**](docs/Scraper.md#google_search) | **POST** /scraper/google | Google Search
+*Scraper* | [**scrape**](docs/Scraper.md#scrape) | **POST** /scraper/scrape | Scrape
+*Tools* | [**extract_text_from_file**](docs/Tools.md#extract_text_from_file) | **POST** /extract-text | Extract text from file
+*Tools* | [**extract_url**](docs/Tools.md#extract_url) | **POST** /extract-article | Extract URL
+*Workflows* | [**create_workflow**](docs/Workflows.md#create_workflow) | **POST** /workflows | Create workflow
+*Workflows* | [**execute_workflow**](docs/Workflows.md#execute_workflow) | **POST** /workflows/{workflow_slug}/execute | Execute workflow
+*Workflows* | [**get_one_workflow**](docs/Workflows.md#get_one_workflow) | **GET** /workflows/{workflow_slug} | Get one workflow
+*Workflows* | [**get_workflows**](docs/Workflows.md#get_workflows) | **GET** /workflows | Get workflows
 
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/tinq-ai/tinq-python.
-  
+## Documentation For Models
 
-## License
 
-The package is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+<a id="documentation-for-authorization"></a>
+## Documentation For Authorization
+
+
+Authentication schemes defined for the API:
+<a id="bearerAuth"></a>
+### bearerAuth
+
+- **Type**: Bearer authentication
+
+
+## Author
+
+boulama@tinq.ai
+
+
